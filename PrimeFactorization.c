@@ -3,6 +3,8 @@
 #include "PrimeFactorization.h"
 #include "PrimalityTest.h"
 
+/*done by Jamie*/
+
 char* primeFactorization(long int num, int* success) {
 	if (success == NULL) {
 		return NULL;
