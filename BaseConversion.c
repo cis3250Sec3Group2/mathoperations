@@ -5,6 +5,8 @@
 #include <limits.h>
 #include "BaseConversion.h"
 
+/*Done by Hilary*/
+
 char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
 	if (baseFrom < 2 || baseFrom > 36 || num == NULL || success == NULL) {
 		if (success != NULL) {
