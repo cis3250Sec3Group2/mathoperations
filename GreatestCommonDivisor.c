@@ -33,7 +33,6 @@ long int gcd(long int num1, long int num2, int* success) {
 	do {
 		lastRemainder = remainder;
 		remainder = (num1 % ((num1 / num2) * num2));
-
 		num1 = num2;
 		num2 = remainder;
 	} while (remainder != 0);
