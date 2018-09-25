@@ -1,6 +1,14 @@
 #include <stdlib.h>
 #include "GreatestCommonDivisor.h"
 
+/*
+* Fonction that calculate the greatest common divisor for two number
+* Param:
+* 	int num1 : first number
+*	int num2 : secon number
+* Return:
+* 	long int greatest common divisor
+*/
 long int gcd(long int num1, long int num2, int* success) {
 	if (num1 == 0 || num2 == 0) {
 		*success = 0;
