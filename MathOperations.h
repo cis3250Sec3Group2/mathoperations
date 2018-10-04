@@ -11,4 +11,6 @@ char* retrieveAlphanumericInput(int*, int);
 
 void retrieveInput(char**, int*, int);
 
+void switchCases(long int);
+
 #endif

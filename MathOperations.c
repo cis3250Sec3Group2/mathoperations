@@ -3,395 +3,402 @@
 #include <errno.h>
 #include <limits.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include "MathOperations.h"
 #include "PrimalityTest.h"
 #include "PrimeFactorization.h"
 #include "Fibonacci.h"
 #include "BaseConversion.h"
 #include "GreatestCommonDivisor.h"
-#include <stdbool.h>
+
 
 /*Done by Anemmeabasi*/
 
 int main(int argc, char *argv[]) {
 
-	long int i, j, longResult, lastDigit;
-	int baseFrom, baseTo;
-	char * a, * strResult, * ordinalIndicator;
-	bool boolResult;
-	unsigned long int unsignedLResult;
+		long int i, j, longResult, lastDigit;
+		int baseFrom, baseTo;
+		char * a, * strResult, * ordinalIndicator;
+		bool boolResult;
+		unsigned long int unsignedLResult;
+		int * success;
 
-	int * success = malloc(sizeof(int));
-	//*success = '\0';
+		success = malloc(sizeof(int));
+		//*success = '\0';
 
-/*proper way to do a do-while loop*/
+		/*proper way to do a do-while loop*/
 		do {
-			printf("*** FUN WITH MATH OPERATIONS ***\n");
-			printf("Select one of the following options to continue (1 - 6):\n"
-					"1.) Primality Test\n"
-					"2.) Prime Factorization\n"
-					"3.) Nth Term in Fibonacci Sequence\n"
-					"4.) Convert a Number from any Base to any Base\n"
-					"5.) Greatest Common Divisor\n"
-					"6.) Exit\n"
-					"Your Selection: ");
+				printf("*** FUN WITH MATH OPERATIONS ***\n");
+				/*printf statements introduced*/
+				printf("Select one of the following options to continue (1 - 6):\n");
+				printf("1. Primality Test\n");
+				printf("2. Prime Factorization\n");
+				printf("3. Nth Term in Fibonacci Sequence\n");
+				printf("4. Convert a Number from any Base to any Base\n");
+				printf("5. Greatest Common Divisor\n");
+				printf("6. Exit\n");
+				printf("Your Selection: \t");
 
-			i = retrieveNumericInput(success);
-			if (success != 1 || i > 6 || i < 1) {
+				i = retrieveNumericInput(success);
+				if (success != 1 || i > 6 || i < 1) {
 				printf("Error parsing response, please try again.\n");
 				}
-			} while (success != 1 || i > 6 || i < 1);
-			
-		switch (i) {
-			case 1:
+		} while (success != 1 || i > 6 || i < 1);
 
-				do {
-					printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-							"Primality Test:\n"
-							"Enter a Number to Test the Primality Of: ");
+		switchCases(i);
+}
 
-					i = retrieveNumericInput(success);
-					if (*success != 1) {
-						printf("\nError parsing response, please try again.");
-					}
-				} while (*success != 1);
+void switchCases(long int i) {
+switch (i) {
+case 1:
 
-				if ((boolResult = isPrime(i)) == 0) {
-					printf("The Number IS NOT Prime.\n");
-				} else if (boolResult == 1) {
-					printf("The Number IS Prime.\n");
-				}
+do {
+printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+"Primality Test:\n"
+"Enter a Number to Test the Primality Of: ");
 
-				*success = '\0';
-				boolResult = '\0';
-				i = '\0';
-				break;
+i = retrieveNumericInput(success);
+if (*success != 1) {
+printf("\nError parsing response, please try again.");
+}
+} while (*success != 1);
 
-			case 2:
-				do {
-					printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-							"Prime Factorization:\n"
-							"Enter a Number to take the Prime Factorization Of: ");
+if ((boolResult = isPrime(i)) == 0) {
+printf("The Number IS NOT Prime.\n");
+} else if (boolResult == 1) {
+printf("The Number IS Prime.\n");
+}
 
-					i = retrieveNumericInput(success);
-					if (*success != 1) {
-						printf("\nError parsing response, please try again.\n");
-					} else {
+*success = '\0';
+boolResult = '\0';
+i = '\0';
+break;
 
-						strResult = primeFactorization(i, success);
-						if (strResult == NULL && *success == -1) {
-							printf("\nError: Please Enter a Number Greater Than 1.\n");
-						}
-					}
-				} while (*success != 1);
+case 2:
+do {
+printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+"Prime Factorization:\n"
+"Enter a Number to take the Prime Factorization Of: ");
 
-				printf("The Prime Factorization of %ld is:\n"
-						"%s\n", i, strResult);
+i = retrieveNumericInput(success);
+if (*success != 1) {
+printf("\nError parsing response, please try again.\n");
+} else {
 
-				free(strResult);
-				strResult = NULL;
+strResult = primeFactorization(i, success);
+if (strResult == NULL && *success == -1) {
+printf("\nError: Please Enter a Number Greater Than 1.\n");
+}
+}
+} while (*success != 1);
 
-				*success ='\0';
-				i = '\0';
-				break;
+printf("The Prime Factorization of %ld is:\n"
+"%s\n", i, strResult);
 
-			case 3:
-				do {
-					printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-							"Nth Term in Fibonacci Sequence:\n"
-							"Enter the Term of the Fibonacci Sequence You Want: ");
+free(strResult);
+strResult = NULL;
 
-					i = retrieveNumericInput(success);
-					if (*success != 1) {
-						printf("\nError parsing response, please try again.\n");
-					} else {
+*success ='\0';
+i = '\0';
+break;
 
-						unsignedLResult = nthFibonacciTerm(i, success);
-						if (*success == -1) {
-							printf("\nError: Please Enter a Non-Negative Number.\n");
-						} else if (*success == 0 && unsignedLResult == ULONG_MAX) {
-							printf("\nError: Number Too Big. Please Enter a Smaller Term.\n");
-						}
-					}
-				} while (*success != 1);
+case 3:
+do {
+printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+"Nth Term in Fibonacci Sequence:\n"
+"Enter the Term of the Fibonacci Sequence You Want: ");
 
-				lastDigit = i % 10;
-				if (lastDigit == 1) {
-					ordinalIndicator = "st";
-				} else if (lastDigit == 2) {
-					ordinalIndicator = "nd";
-				} else if (lastDigit == 3) {
-					ordinalIndicator = "rd";
-				} else {
-					ordinalIndicator = "th";
-				}
+i = retrieveNumericInput(success);
+if (*success != 1) {
+printf("\nError parsing response, please try again.\n");
+} else {
 
-				printf("The %ld%s Term of the Fibonacci Sequence is:\n"
-						"%lu\n", i, ordinalIndicator, unsignedLResult);
+unsignedLResult = nthFibonacciTerm(i, success);
+if (*success == -1) {
+printf("\nError: Please Enter a Non-Negative Number.\n");
+} else if (*success == 0 && unsignedLResult == ULONG_MAX) {
+printf("\nError: Number Too Big. Please Enter a Smaller Term.\n");
+}
+}
+} while (*success != 1);
 
-				*success = '\0';
-				i = '\0';
-				unsignedLResult = '\0';
-				lastDigit = '\0';
-				ordinalIndicator = NULL;
-				break;
+lastDigit = i % 10;
+if (lastDigit == 1) {
+ordinalIndicator = "st";
+} else if (lastDigit == 2) {
+ordinalIndicator = "nd";
+} else if (lastDigit == 3) {
+ordinalIndicator = "rd";
+} else {
+ordinalIndicator = "th";
+}
 
-			case 4:
-				do {
-					printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-							"Convert a Number From Any Base to Any Base:\n"
-							"Enter the Base to Convert From: ");
+printf("The %ld%s Term of the Fibonacci Sequence is:\n"
+"%lu\n", i, ordinalIndicator, unsignedLResult);
 
-					baseFrom = retrieveNumericInput(success);
+*success = '\0';
+i = '\0';
+unsignedLResult = '\0';
+lastDigit = '\0';
+ordinalIndicator = NULL;
+break;
 
-					if (*success != 1) {
-						printf("\nError parsing input. Please try again.\n");
-						continue;
-					} else if (baseFrom < 2 || baseFrom > 36) {
-						printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
-						*success = 0;
-						continue;
-					}
+case 4:
+do {
+printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+"Convert a Number From Any Base to Any Base:\n"
+"Enter the Base to Convert From: ");
 
-					printf("Now Enter the Number to Convert: ");
-					a = retrieveAlphanumericInput(success, baseFrom);
+baseFrom = retrieveNumericInput(success);
 
-					if (*success != 1) {
-						printf("\nError parsing input. Please try again.\n");
-						continue;
-					}
+if (*success != 1) {
+printf("\nError parsing input. Please try again.\n");
+continue;
+} else if (baseFrom < 2 || baseFrom > 36) {
+printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
+*success = 0;
+continue;
+}
 
-					printf("Now Enter the Base to Convert To: ");
-					baseTo = retrieveNumericInput(success);
+printf("Now Enter the Number to Convert: ");
+a = retrieveAlphanumericInput(success, baseFrom);
 
-					if (*success != 1) {
-						printf("\nError parsing input. Please try again.\n");
-						continue;
-					} else if (baseTo < 2 || baseTo > 36) {
-						printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
-						*success = 0;
-						continue;
-					}
+if (*success != 1) {
+printf("\nError parsing input. Please try again.\n");
+continue;
+}
 
-					strResult = baseConversion(baseFrom, baseTo, a, success);
-					if (*success != 1) {
-						printf("\nError Converting Number. Please try again.\n");
-						continue;
-					}
-				} while (*success != 1);
+printf("Now Enter the Base to Convert To: ");
+baseTo = retrieveNumericInput(success);
 
-				printf("The Base %d Number %s in Base %d is:\n"
-						"%s\n", baseFrom, a, baseTo, strResult);
+if (*success != 1) {
+printf("\nError parsing input. Please try again.\n");
+continue;
+} else if (baseTo < 2 || baseTo > 36) {
+printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
+*success = 0;
+continue;
+}
 
-				*success = '\0';
-				baseFrom = '\0';
-				free(a);
-				a = NULL;
-				baseTo = '\0';
-				free(strResult);
-				strResult = NULL;
-				break;
+strResult = baseConversion(baseFrom, baseTo, a, success);
+if (*success != 1) {
+printf("\nError Converting Number. Please try again.\n");
+continue;
+}
+} while (*success != 1);
 
-			case 5:
-				do {
-					printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-							"Greatest Common Divisor:\n"
-							"Enter Number 1: ");
+printf("The Base %d Number %s in Base %d is:\n"
+"%s\n", baseFrom, a, baseTo, strResult);
 
-					i =  retrieveNumericInput(success);
+*success = '\0';
+baseFrom = '\0';
+free(a);
+a = NULL;
+baseTo = '\0';
+free(strResult);
+strResult = NULL;
+break;
 
-					if (*success != 1) {
-						printf("\nError parsing input. Please try again.\n");
-						continue;
-					}
+case 5:
+do {
+printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+"Greatest Common Divisor:\n"
+"Enter Number 1: ");
 
-					if (i == 0) {
-						printf("\nError: Please Enter a Non-Zero Number.\n");
-						continue;
-					}
+i =  retrieveNumericInput(success);
 
-					printf("Now Enter Number 2: ");
-					i2 = retrieveNumericInput(success);
+if (*success != 1) {
+printf("\nError parsing input. Please try again.\n");
+continue;
+}
 
-					if (*success != 1) {
-						printf("\nError parsing input. Please try again.\n");
-						continue;
-					}
+if (i == 0) {
+printf("\nError: Please Enter a Non-Zero Number.\n");
+continue;
+}
 
-					if (i == 0) {
-						printf("\nError: Please Enter a Non-Zero Number.\n");
-						continue;
-					}
+printf("Now Enter Number 2: ");
+i2 = retrieveNumericInput(success);
 
-					longResult = gcd(i, i2, success);
+if (*success != 1) {
+printf("\nError parsing input. Please try again.\n");
+continue;
+}
 
-					if (*success != 1) {
-						printf("\nError getting result. Please try again.\n");
-						continue;
-					}
+if (i == 0) {
+printf("\nError: Please Enter a Non-Zero Number.\n");
+continue;
+}
 
-				} while (*success != 1);
+longResult = gcd(i, i2, success);
 
-				printf("The Greatest Common Divisor of %ld and %ld is\n"
-						"%ld\n", i, i2, longResult);
+if (*success != 1) {
+printf("\nError getting result. Please try again.\n");
+continue;
+}
 
-				*success = '\0';
-				i =  '\0';
-				i2 = '\0';
-				break;
+} while (*success != 1);
 
-			case 6:
-				free(success);
-				success = NULL;
-				return 0;
-				break;
+printf("The Greatest Common Divisor of %ld and %ld is\n"
+"%ld\n", i, i2, longResult);
 
-			default:
-				free(success);
-				success = NULL;
-				return 1;
-		}
+*success = '\0';
+i =  '\0';
+i2 = '\0';
+break;
 
-		printf("\n~~~~~~~~~~~~~~~~~~~~\n\n");
-	}
+case 6:
+free(success);
+success = NULL;
+return 0;
+break;
+
+default:
+free(success);
+success = NULL;
+return 1;
+}
+
+printf("\n~~~~~~~~~~~~~~~~~~~~\n\n");
+}
 }
 
 long int retrieveNumericInput(int* success) {
-	char *input = NULL;
-	char *endptr = NULL;
-	retrieveInput(&input, success, 10);
+char *input = NULL;
+char *endptr = NULL;
+retrieveInput(&input, success, 10);
 
-	if (input == NULL || *success != 1) {
-		*success = 0;
-		return '\0';
-	}
+if (input == NULL || *success != 1) {
+*success = 0;
+return '\0';
+}
 
-	long int ret = '\0';
-	errno = 0;
-	ret = strtol(input, &endptr, 10);
+long int ret = '\0';
+errno = 0;
+ret = strtol(input, &endptr, 10);
 
-	free(input);
-	input = NULL;
+free(input);
+input = NULL;
 
-	if (input == endptr) {
-		*success = 0;
-		return '\0';
-	}
+if (input == endptr) {
+*success = 0;
+return '\0';
+}
 
-	if ((ret == LONG_MAX || ret == LONG_MIN) && errno == ERANGE) {
-		*success = 0;
-		return '\0';
-	}
+if ((ret == LONG_MAX || ret == LONG_MIN) && errno == ERANGE) {
+*success = 0;
+return '\0';
+}
 
-	*success = 1;
-	return ret;
+*success = 1;
+return ret;
 }
 
 char* retrieveAlphanumericInput(int* success, int base) {
-	char *input = NULL;
-	retrieveInput(&input, success, base);
+char *input = NULL;
+retrieveInput(&input, success, base);
 
-	if (input == NULL || *success != 1) {
-		*success = 0;
-		return NULL;
-	}
+if (input == NULL || *success != 1) {
+*success = 0;
+return NULL;
+}
 
-	*success = 1;
-	return input;
+*success = 1;
+return input;
 
 }
 
 void retrieveInput(char** input, int* success, int base) {
-	if (input == NULL || success == NULL || (base < 2 || base > 36)) {
-		return;
-	} else {
-		*success = '\0';
-	}
+if (input == NULL || success == NULL || (base < 2 || base > 36)) {
+return;
+} else {
+*success = '\0';
+}
 
-	int size = 128;
-	*input = (char*)malloc(sizeof(char) * size);
+int size = 128;
+*input = (char*)malloc(sizeof(char) * size);
 
-	(*input)[size - 1] = '\0';
+(*input)[size - 1] = '\0';
 
-	if (*input == NULL) {
-		*success = 0;
-		return;
-	}
+if (*input == NULL) {
+*success = 0;
+return;
+}
 
-	char* newInput = NULL;
-	char maxChar = '\0';
-	char c = '\0';
-	int len = 0;
+char* newInput = NULL;
+char maxChar = '\0';
+char c = '\0';
+int len = 0;
 
-	if (base <= 10) {
-		maxChar = base + '0' - 1;
-	} else {
-		maxChar = 'A' + (base - 11);
-	}
+if (base <= 10) {
+maxChar = base + '0' - 1;
+} else {
+maxChar = 'A' + (base - 11);
+}
 
-	do {
-		c = getchar();
-		c = toupper(c);
+do {
+c = getchar();
+c = toupper(c);
 
-		if (isspace(c)) {
-			continue;
-		}
+if (isspace(c)) {
+continue;
+}
 
-		if ((!isalnum(c) && (c != '-' && c != '+')) || ((c == '-' || c == '+') && len != 0) || c > maxChar) {
-			free(*input);
-			*input = NULL;
-			*success = 0;
-			while ((c = getchar()) != '\n' && c != EOF);
-			return;
-		}
+if ((!isalnum(c) && (c != '-' && c != '+')) || ((c == '-' || c == '+') && len != 0) || c > maxChar) {
+free(*input);
+*input = NULL;
+*success = 0;
+while ((c = getchar()) != '\n' && c != EOF);
+return;
+}
 
-		if (len == (size - 1)) {
-			size += 64;
+if (len == (size - 1)) {
+size += 64;
 
-			newInput = (char*)realloc(*input, sizeof(char) * size);
+newInput = (char*)realloc(*input, sizeof(char) * size);
 
-			if (newInput == NULL) {
-				*success = 0;
-				free(*input);
-				*input = NULL;
-				return;
-			} else {
-				*input = newInput;
-				newInput = NULL;
-			}
-		}
+if (newInput == NULL) {
+*success = 0;
+free(*input);
+*input = NULL;
+return;
+} else {
+*input = newInput;
+newInput = NULL;
+}
+}
 
-		if (len == 0) {
-			if (c != '-' && c != '+') {
-				(*input)[len] = '+';
-				len++;
-			}
-		}
+if (len == 0) {
+if (c != '-' && c != '+') {
+(*input)[len] = '+';
+len++;
+}
+}
 
-		(*input)[len] = c;
-		len++;
+(*input)[len] = c;
+len++;
 
-	} while (c != '\n' && c != EOF);
+} while (c != '\n' && c != EOF);
 
-	if (len == 0) {
-		free(*input);
-		*input = NULL;
-		*success = 0;
-		return;
-	}
+if (len == 0) {
+free(*input);
+*input = NULL;
+*success = 0;
+return;
+}
 
-	newInput = (char*)realloc(*input, sizeof(char) * len + 1);
+newInput = (char*)realloc(*input, sizeof(char) * len + 1);
 
-	if (newInput == NULL) {
-		*success = 0;
-		free(*input);
-		*input = NULL;
-		return;
-	} else {
-		*input = newInput;
-		newInput = NULL;
-	}
+if (newInput == NULL) {
+*success = 0;
+free(*input);
+*input = NULL;
+return;
+} else {
+*input = newInput;
+newInput = NULL;
+}
 
-	*success = 1;
-	(*input)[len] = '\0';
+*success = 1;
+(*input)[len] = '\0';
 }
