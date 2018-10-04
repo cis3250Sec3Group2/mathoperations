@@ -9,29 +9,22 @@
 #include "Fibonacci.h"
 #include "BaseConversion.h"
 #include "GreatestCommonDivisor.h"
+#include <stdbool.h>
 
 /*Done by Anemmeabasi*/
 
 int main(int argc, char *argv[]) {
 
-	long int i = '\0';
-	long int i2 = '\0';
-	int baseFrom = '\0';
-	int baseTo = '\0';
-	char *a = NULL;
+	long int i, j, longResult, lastDigit;
+	int baseFrom, baseTo;
+	char * a, * strResult, * ordinalIndicator;
+	bool boolResult;
+	unsigned long int unsignedLResult;
 
-	int boolResult = '\0';
-	long int longResult = '\0';
-	unsigned long int unsignedLResult = '\0';
-	char *strResult = NULL;
+	int * success = malloc(sizeof(int));
+	//*success = '\0';
 
-	int *success = (int*)malloc(sizeof(int));
-	*success = '\0';
-
-	int lastDigit = '\0';
-	char *ordinalIndicator = NULL;
-
-	while (1) {
+/*proper way to do a do-while loop*/
 		do {
 			printf("*** FUN WITH MATH OPERATIONS ***\n");
 			printf("Select one of the following options to continue (1 - 6):\n"
@@ -44,11 +37,11 @@ int main(int argc, char *argv[]) {
 					"Your Selection: ");
 
 			i = retrieveNumericInput(success);
-			if (*success != 1 || i > 6 || i < 1) {
-				printf("\nError parsing response, please try again.\n");
-			}
-		} while (*success != 1 || i > 6 || i < 1);
-
+			if (success != 1 || i > 6 || i < 1) {
+				printf("Error parsing response, please try again.\n");
+				}
+			} while (success != 1 || i > 6 || i < 1);
+			
 		switch (i) {
 			case 1:
 
@@ -260,7 +253,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		printf("\n~~~~~~~~~~~~~~~~~~~~\n\n");
-	}	
+	}
 }
 
 long int retrieveNumericInput(int* success) {
