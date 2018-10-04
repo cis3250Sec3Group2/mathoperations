@@ -6,6 +6,7 @@
 * Param:
 * 	int num1 : first number
 *	int num2 : secon number
+*	int* success
 * Return:
 * 	long int greatest common divisor
 */
@@ -35,8 +36,8 @@ long int gcd(long int num1, long int num2, int* success) {
 		num1 = temp;
 	}
 
-	long int remainder = '\0';
-	long int lastRemainder = '\0';
+	long int remainder;
+	long int lastRemainder;
 
 	do {
 		lastRemainder = remainder;
