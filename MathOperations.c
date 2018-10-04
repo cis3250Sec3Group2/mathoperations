@@ -249,48 +249,46 @@ void switchCases(long int i) {
 }
 
 long int retrieveNumericInput(int* success) {
-char *input = NULL;
-char *endptr = NULL;
-retrieveInput(&input, success, 10);
+		char *input;
+		char *endptr;
+		long int ret;
 
-if (input == NULL || *success != 1) {
-*success = 0;
-return '\0';
-}
+		retrieveInput(&input, success, 10);
 
-long int ret = '\0';
-errno = 0;
-ret = strtol(input, &endptr, 10);
+		if (input == NULL || *success != 1) {
+				*success = 0;
+		}
 
-free(input);
-input = NULL;
+		errno = 0;
+		ret = strtol(input, &endptr, 10);
 
-if (input == endptr) {
-*success = 0;
-return '\0';
-}
+		if (input == endptr) {
+				*success = 0;
+		}
 
-if ((ret == LONG_MAX || ret == LONG_MIN) && errno == ERANGE) {
-*success = 0;
-return '\0';
-}
+		free(input);
 
-*success = 1;
-return ret;
+		if ((ret == LONG_MAX || ret == LONG_MIN) && errno == ERANGE) {
+				*success = 0;
+		} else {
+				*success = 1;
+		}
+
+		reutrn ret;
 }
 
 char* retrieveAlphanumericInput(int* success, int base) {
-char *input = NULL;
-retrieveInput(&input, success, base);
+		char *input = NULL;
 
-if (input == NULL || *success != 1) {
-*success = 0;
-return NULL;
-}
+		retrieveInput(&input, success, base);
 
-*success = 1;
-return input;
+		if (input == NULL || *success != 1) {
+				*success = 0;
+		} else {
+				*success = 1;
+		}
 
+		return input;
 }
 
 void retrieveInput(char** input, int* success, int base) {
