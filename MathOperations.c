@@ -41,226 +41,211 @@ int main(int argc, char *argv[]) {
 
 				i = retrieveNumericInput(success);
 				if (success != 1 || i > 6 || i < 1) {
-				printf("Error parsing response, please try again.\n");
+						printf("Error parsing response, please try again.\n");
 				}
 		} while (success != 1 || i > 6 || i < 1);
 
 		switchCases(i);
+
+		return 0;
 }
 
 void switchCases(long int i) {
-switch (i) {
-case 1:
 
-do {
-printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-"Primality Test:\n"
-"Enter a Number to Test the Primality Of: ");
+		switch (i) {
+		case 1:
 
-i = retrieveNumericInput(success);
-if (*success != 1) {
-printf("\nError parsing response, please try again.");
-}
-} while (*success != 1);
+				do {
+						printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+						"Primality Test:\n"
+						"Enter a Number to Test the Primality Of: ");
 
-if ((boolResult = isPrime(i)) == 0) {
-printf("The Number IS NOT Prime.\n");
-} else if (boolResult == 1) {
-printf("The Number IS Prime.\n");
-}
+						i = retrieveNumericInput(success);
+						if (*success != 1) {
+						printf("\nError parsing response, please try again.");
+						}
+				} while (*success != 1);
 
-*success = '\0';
-boolResult = '\0';
-i = '\0';
-break;
+				if ((boolResult = isPrime(i)) == 0) {
+						printf("The Number IS NOT Prime.\n");
+				} else if (boolResult == 1) {
+						printf("The Number IS Prime.\n");
+				}
 
-case 2:
-do {
-printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-"Prime Factorization:\n"
-"Enter a Number to take the Prime Factorization Of: ");
+				*success = '\0';
+				boolResult = '\0';
+				i = '\0';
+				break;
 
-i = retrieveNumericInput(success);
-if (*success != 1) {
-printf("\nError parsing response, please try again.\n");
-} else {
+		case 2:
 
-strResult = primeFactorization(i, success);
-if (strResult == NULL && *success == -1) {
-printf("\nError: Please Enter a Number Greater Than 1.\n");
-}
-}
-} while (*success != 1);
+				do {
+						printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+						"Prime Factorization:\n"
+						"Enter a Number to take the Prime Factorization Of: ");
 
-printf("The Prime Factorization of %ld is:\n"
-"%s\n", i, strResult);
+						i = retrieveNumericInput(success);
+								if (*success != 1) {
+										printf("\nError parsing response, please try again.\n");
+								} else {
 
-free(strResult);
-strResult = NULL;
+										strResult = primeFactorization(i, success);
 
-*success ='\0';
-i = '\0';
-break;
+										if (strResult == NULL && *success == -1) {
+												printf("\nError: Please Enter a Number Greater Than 1.\n");
+											}
+								}
+				} while (*success != 1);
 
-case 3:
-do {
-printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-"Nth Term in Fibonacci Sequence:\n"
-"Enter the Term of the Fibonacci Sequence You Want: ");
+				printf("The Prime Factorization of %ld is: %s\n", i, strResult);
 
-i = retrieveNumericInput(success);
-if (*success != 1) {
-printf("\nError parsing response, please try again.\n");
-} else {
+				free(strResult);
+				break;
 
-unsignedLResult = nthFibonacciTerm(i, success);
-if (*success == -1) {
-printf("\nError: Please Enter a Non-Negative Number.\n");
-} else if (*success == 0 && unsignedLResult == ULONG_MAX) {
-printf("\nError: Number Too Big. Please Enter a Smaller Term.\n");
-}
-}
-} while (*success != 1);
+		case 3:
 
-lastDigit = i % 10;
-if (lastDigit == 1) {
-ordinalIndicator = "st";
-} else if (lastDigit == 2) {
-ordinalIndicator = "nd";
-} else if (lastDigit == 3) {
-ordinalIndicator = "rd";
-} else {
-ordinalIndicator = "th";
-}
+		do {
+				printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+				"Nth Term in Fibonacci Sequence:\n"
+				"Enter the Term of the Fibonacci Sequence You Want: ");
 
-printf("The %ld%s Term of the Fibonacci Sequence is:\n"
-"%lu\n", i, ordinalIndicator, unsignedLResult);
+				i = retrieveNumericInput(success);
+						if (*success != 1) {
+								printf("\nError parsing response, please try again.\n");
+						} else {
 
-*success = '\0';
-i = '\0';
-unsignedLResult = '\0';
-lastDigit = '\0';
-ordinalIndicator = NULL;
-break;
+						unsignedLResult = nthFibonacciTerm(i, success);
 
-case 4:
-do {
-printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-"Convert a Number From Any Base to Any Base:\n"
-"Enter the Base to Convert From: ");
+								if (*success == -1) {
+										printf("\nError: Please Enter a Non-Negative Number.\n");
+								} else if (*success == 0 && unsignedLResult == ULONG_MAX) {
+										printf("\nError: Number Too Big. Please Enter a Smaller Term.\n");
+								}
+						}
+		} while (*success != 1);
 
-baseFrom = retrieveNumericInput(success);
+		lastDigit = i % 10;
 
-if (*success != 1) {
-printf("\nError parsing input. Please try again.\n");
-continue;
-} else if (baseFrom < 2 || baseFrom > 36) {
-printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
-*success = 0;
-continue;
-}
+		if (lastDigit == 1) {
+				ordinalIndicator = "st";
+		} else if (lastDigit == 2) {
+				ordinalIndicator = "nd";
+		} else if (lastDigit == 3) {
+				ordinalIndicator = "rd";
+		} else {
+				ordinalIndicator = "th";
+		}
 
-printf("Now Enter the Number to Convert: ");
-a = retrieveAlphanumericInput(success, baseFrom);
+		printf("The %ld%s Term of the Fibonacci Sequence is: %lu\n", i, ordinalIndicator, unsignedLResult);
+		break;
 
-if (*success != 1) {
-printf("\nError parsing input. Please try again.\n");
-continue;
-}
+		case 4:
 
-printf("Now Enter the Base to Convert To: ");
-baseTo = retrieveNumericInput(success);
+		do {
+				printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+				"Convert a Number From Any Base to Any Base:\n"
+				"Enter the Base to Convert From: ");
 
-if (*success != 1) {
-printf("\nError parsing input. Please try again.\n");
-continue;
-} else if (baseTo < 2 || baseTo > 36) {
-printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
-*success = 0;
-continue;
-}
+				baseFrom = retrieveNumericInput(success);
 
-strResult = baseConversion(baseFrom, baseTo, a, success);
-if (*success != 1) {
-printf("\nError Converting Number. Please try again.\n");
-continue;
-}
-} while (*success != 1);
+				if (*success != 1) {
+						printf("\nError parsing input. Please try again.\n");
+						continue;
+				} else if (baseFrom < 2 || baseFrom > 36) {
+						printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
+						*success = 0;
+				    continue;
+				}
 
-printf("The Base %d Number %s in Base %d is:\n"
-"%s\n", baseFrom, a, baseTo, strResult);
+				printf("Now Enter the Number to Convert: ");
+				a = retrieveAlphanumericInput(success, baseFrom);
 
-*success = '\0';
-baseFrom = '\0';
-free(a);
-a = NULL;
-baseTo = '\0';
-free(strResult);
-strResult = NULL;
-break;
+				if (*success != 1) {
+						printf("\nError parsing input. Please try again.\n");
+				    continue;
+				}
 
-case 5:
-do {
-printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
-"Greatest Common Divisor:\n"
-"Enter Number 1: ");
+				printf("Now Enter the Base to Convert To: ");
+				baseTo = retrieveNumericInput(success);
 
-i =  retrieveNumericInput(success);
+				if (*success != 1) {
+						printf("\nError parsing input. Please try again.\n");
+						continue;
+				} else if (baseTo < 2 || baseTo > 36) {
+						printf("\nError: Please Enter a Base Between 2 and 36 (Inclusive)\n");
+						*success = 0;
+						continue;
+				}
 
-if (*success != 1) {
-printf("\nError parsing input. Please try again.\n");
-continue;
-}
+				strResult = baseConversion(baseFrom, baseTo, a, success);
+				if (*success != 1) {
+						printf("\nError Converting Number. Please try again.\n");
+						continue;
+				}
+		} while (*success != 1);
 
-if (i == 0) {
-printf("\nError: Please Enter a Non-Zero Number.\n");
-continue;
-}
+		printf("The Base %d Number %s in Base %d is: %s\n", baseFrom, a, baseTo, strResult);
 
-printf("Now Enter Number 2: ");
-i2 = retrieveNumericInput(success);
 
-if (*success != 1) {
-printf("\nError parsing input. Please try again.\n");
-continue;
-}
+		free(a);
+		free(strResult);
+		break;
 
-if (i == 0) {
-printf("\nError: Please Enter a Non-Zero Number.\n");
-continue;
-}
+		case 5:
 
-longResult = gcd(i, i2, success);
+				do {
+						printf("\n~~~~~~~~~~~~~~~~~~~~\n\n"
+						"Greatest Common Divisor:\n"
+						"Enter Number 1: ");
 
-if (*success != 1) {
-printf("\nError getting result. Please try again.\n");
-continue;
-}
+						i =  retrieveNumericInput(success);
 
-} while (*success != 1);
+						if (*success != 1) {
+								printf("\nError parsing input. Please try again.\n");
+								continue;
+						}
 
-printf("The Greatest Common Divisor of %ld and %ld is\n"
-"%ld\n", i, i2, longResult);
+						if (i == 0) {
+								printf("\nError: Please Enter a Non-Zero Number.\n");
+								continue;
+						}
 
-*success = '\0';
-i =  '\0';
-i2 = '\0';
-break;
+						printf("Now Enter Number 2: ");
+						i2 = retrieveNumericInput(success);
 
-case 6:
-free(success);
-success = NULL;
-return 0;
-break;
+						if (*success != 1) {
+								printf("\nError parsing input. Please try again.\n");
+								continue;
+						}
 
-default:
-free(success);
-success = NULL;
-return 1;
-}
+						if (i == 0) {
+								printf("\nError: Please Enter a Non-Zero Number.\n");
+								continue;
+						}
 
-printf("\n~~~~~~~~~~~~~~~~~~~~\n\n");
-}
+						longResult = gcd(i, i2, success);
+
+						if (*success != 1) {
+								printf("\nError getting result. Please try again.\n");
+								continue;
+						}
+				} while (*success != 1);
+
+				printf("The Greatest Common Divisor of %ld and %ld is %ld\n", i, i2, longResult);
+				break;
+
+		case 6:
+
+			free(success);
+			break;
+
+		default:
+
+		free(success);
+		}
+
+		printf("\n~~~~~~~~~~~~~~~~~~~~\n\n");
+		}
 }
 
 long int retrieveNumericInput(int* success) {
