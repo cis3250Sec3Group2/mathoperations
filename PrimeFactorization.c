@@ -5,6 +5,9 @@
 
 /*done by Jamie*/
 
+long int base = 2;
+long int power = 0;
+
 char* primeFactorization(long int num, int* success) {
 	if (success == NULL) {
 		return NULL;
@@ -26,9 +29,6 @@ char* primeFactorization(long int num, int* success) {
 		return list;
 	}
 
-	long int base = 2;
-	long int power = 0;
-
 	while (num != 1) {
 		while (num % base == 0) {
 			num /= base;
@@ -42,16 +42,21 @@ char* primeFactorization(long int num, int* success) {
 				list = addToList(list, num, 1);
 				break;
 			}
+
 			power = 0;
 		}
+
 		base = getNextPrime(base);
 	}
+
 	*success = 1;
 	return list;
 }
 
+
 char* toString(long int num) {
 	int len = 1;
+	int i;
 	long int newNum = num;
 
 	while (newNum / 10 != 0) {
@@ -60,21 +65,20 @@ char* toString(long int num) {
 	}
 
 	char *ret = (char*)malloc(sizeof(char) * len + 1);
-
 	ret[len] = '\0';
-
-	int i;
 	for (i = len - 1; i >= 0; i--) {
 		ret[i] = ((num % 10) + '0');
 		num /= 10;
 	}
+
 	return ret;
 }
 
+
 char* addToList(char* list, long int base, long int power) {
-	int currentLen = strlen(list);
 	char* baseStr = toString(base);
 	char* powerStr = toString(power);
+	int currentLen = strlen(list);
 	int newLen = currentLen + strlen(baseStr) + strlen(powerStr);
 
 	char* newList;
@@ -90,6 +94,7 @@ char* addToList(char* list, long int base, long int power) {
 		strcat(newList, "^");
 		strcat(newList, powerStr);
 	}
+
 	free(baseStr);
 	free(powerStr);
 	baseStr = NULL;
