@@ -249,6 +249,7 @@ void switchCases(long int i) {
 }
 
 long int retrieveNumericInput(int* success) {
+
 		char *input;
 		char *endptr;
 		long int ret;
@@ -278,6 +279,7 @@ long int retrieveNumericInput(int* success) {
 }
 
 char* retrieveAlphanumericInput(int* success, int base) {
+
 		char *input = NULL;
 
 		retrieveInput(&input, success, base);
@@ -292,96 +294,81 @@ char* retrieveAlphanumericInput(int* success, int base) {
 }
 
 void retrieveInput(char** input, int* success, int base) {
-if (input == NULL || success == NULL || (base < 2 || base > 36)) {
-return;
-} else {
-*success = '\0';
-}
 
-int size = 128;
-*input = (char*)malloc(sizeof(char) * size);
+		int size = 128;
+		char* newInput = NULL;
+		char maxChar = '\0';
+		char c = '\0';
+		int len = 0;
 
-(*input)[size - 1] = '\0';
+		if (input == NULL || success == NULL || (base < 2 || base > 36)) {
+				return;
+		} else {
+				*success = '\0';
+		}
 
-if (*input == NULL) {
-*success = 0;
-return;
-}
+		*input = malloc(sizeof(char) * size);
 
-char* newInput = NULL;
-char maxChar = '\0';
-char c = '\0';
-int len = 0;
+		(*input)[size - 1] = '\0'; //wtf does this do???
 
-if (base <= 10) {
-maxChar = base + '0' - 1;
-} else {
-maxChar = 'A' + (base - 11);
-}
+		if (*input == NULL) {
+				*success = 0;
+		}
 
-do {
-c = getchar();
-c = toupper(c);
+		if (base <= 10) {
+				maxChar = base + '0' - 1;
+		} else {
+				maxChar = 'A' + (base - 11);
+		}
 
-if (isspace(c)) {
-continue;
-}
+		do {
+				c = getchar();
+				c = toupper(c);
 
-if ((!isalnum(c) && (c != '-' && c != '+')) || ((c == '-' || c == '+') && len != 0) || c > maxChar) {
-free(*input);
-*input = NULL;
-*success = 0;
-while ((c = getchar()) != '\n' && c != EOF);
-return;
-}
+				if (isspace(c)) {
+						continue;
+				}
 
-if (len == (size - 1)) {
-size += 64;
+				if ((!isalnum(c) && (c != '-' && c != '+')) || ((c == '-' || c == '+') && len != 0) || c > maxChar) {
+						free(*input);
+						*success = 0;
+				}
 
-newInput = (char*)realloc(*input, sizeof(char) * size);
+				if (len == (size - 1)) {
+						size += 64;
+						newInput = realloc(*input, sizeof(char) * size);
+								if (newInput == NULL) {
+										*success = 0;
+										free(*input);
+										return;
+								} else {
+										*input = newInput;
+								}
+				}
 
-if (newInput == NULL) {
-*success = 0;
-free(*input);
-*input = NULL;
-return;
-} else {
-*input = newInput;
-newInput = NULL;
-}
-}
+				if (len == 0 && (c != '-' && c != '+')) {
+						(*input)[len] = '+';
+						len++;
+				}
 
-if (len == 0) {
-if (c != '-' && c != '+') {
-(*input)[len] = '+';
-len++;
-}
-}
+				(*input)[len] = c;
+				len++;
+		} while (c != '\n' && c != EOF);
 
-(*input)[len] = c;
-len++;
+		if (len == 0) {
+				free(*input);
+				*success = 0;
+		}
 
-} while (c != '\n' && c != EOF);
+		newInput = realloc(*input, sizeof(char) * len + 1);
 
-if (len == 0) {
-free(*input);
-*input = NULL;
-*success = 0;
-return;
-}
+		if (newInput == NULL) {
+				*success = 0;
+				free(*input);
+		} else {
+				*input = newInput;
+		}
 
-newInput = (char*)realloc(*input, sizeof(char) * len + 1);
-
-if (newInput == NULL) {
-*success = 0;
-free(*input);
-*input = NULL;
-return;
-} else {
-*input = newInput;
-newInput = NULL;
-}
-
-*success = 1;
-(*input)[len] = '\0';
+		*success = 1;
+		(*input)[len] = '\0';
 }
