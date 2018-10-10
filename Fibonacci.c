@@ -3,6 +3,10 @@
 #include "Fibonacci.h"
 
 unsigned long int nthFibonacciTerm(long int term, int* success) {
+	unsigned long int num1 = 1;
+	unsigned long int num2 = 1;
+	int next = 0;
+	int i;
 	if (success == NULL) {
 		return '\0';
 	} else {
@@ -19,12 +23,6 @@ unsigned long int nthFibonacciTerm(long int term, int* success) {
 		return 0;
 	}
 
-	unsigned long int num1 = 1;
-	unsigned long int num2 = 1;
-	int next = 0;
-
-
-	int i;
 	for (i = 2; i < term; i++) {
 		if (willOverflow(num1, num2) == 1) {
 			*success = 0;
@@ -38,6 +36,7 @@ unsigned long int nthFibonacciTerm(long int term, int* success) {
 			num2 += num1;
 			next = 0;
 		}
+
 	}
 
 	if (next == 0) {
@@ -48,6 +47,7 @@ unsigned long int nthFibonacciTerm(long int term, int* success) {
 		return num1;
 	}
 }
+
 
 int willOverflow(unsigned long int num1, unsigned long int num2) {
 	if (num1 > ULONG_MAX - num2) {
