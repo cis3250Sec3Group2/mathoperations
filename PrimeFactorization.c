@@ -5,10 +5,9 @@
 
 /*done by Jamie*/
 
-long int base = 2;
-long int power = 0;
-
 char* primeFactorization(long int num, int* success) {
+	long int base = 2;
+	long int power = 0;
 	if (success == NULL) {
 		return NULL;
 	} else {
@@ -66,6 +65,7 @@ char* toString(long int num) {
 
 	char *ret = (char*)malloc(sizeof(char) * len + 1);
 	ret[len] = '\0';
+
 	for (i = len - 1; i >= 0; i--) {
 		ret[i] = ((num % 10) + '0');
 		num /= 10;
@@ -94,7 +94,7 @@ char* addToList(char* list, long int base, long int power) {
 		strcat(newList, "^");
 		strcat(newList, powerStr);
 	}
-
+	
 	free(baseStr);
 	free(powerStr);
 	baseStr = NULL;
