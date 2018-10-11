@@ -45,12 +45,12 @@ int main(int argc, char *argv[]) {
 				}
 		} while (success != 1 || i > 6 || i < 1);
 
-		switchCases(i);
+		switchCases(i, success);
 
 		return 0;
 }
 
-void switchCases(long int i) {
+void switchCases(long int i, int * success) {
 
 		switch (i) {
 		case 1:
