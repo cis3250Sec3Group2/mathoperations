@@ -1,3 +1,9 @@
+/* BaseConversion.c converts a value from one base to another
+* Included functions:
+* char* baseConversion(int baseFrom, int baseTo, char* num, int* success)
+* int willNextOverflow(unsigned long int num1, unsigned long int num2)
+*/
+
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -7,6 +13,7 @@
 
 /*Done by Hilary*/
 
+/* calculates the conversion from one base to another */
 char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
 		int i;
 		int len = 0;
@@ -117,6 +124,8 @@ char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
 		return ret;
 }
 
+
+/* checks if there is an overflow */
 int willNextOverflow(unsigned long int num1, unsigned long int num2) {
 		if (num1 > ULONG_MAX - num2) {
 				return 1;
