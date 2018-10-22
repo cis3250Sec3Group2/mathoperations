@@ -1,3 +1,7 @@
+/*
+*	This program is the main ptrgoram used to test the fucntionality of all other programs
+* in mathoperations, using user input and switch statements
+*/
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
@@ -14,6 +18,7 @@
 
 /*Done by Anemmeabasi*/
 
+//this is the main functions used to test the functionality of all other files in the mathoperations folder
 int main(int argc, char *argv[]) {
 
 		long int i, j, longResult, lastDigit;
@@ -50,6 +55,8 @@ int main(int argc, char *argv[]) {
 		return 0;
 }
 
+
+//prints out the user menu for them to select what operations they want to perform.
 void switchCases(long int i, int * success) {
 
 		switch (i) {
@@ -248,6 +255,7 @@ void switchCases(long int i, int * success) {
 		}
 }
 
+
 long int retrieveNumericInput(int* success) {
 
 		char *input;
@@ -278,6 +286,8 @@ long int retrieveNumericInput(int* success) {
 		reutrn ret;
 }
 
+
+//recieves and checks that what the use entered is alphanumeric
 char* retrieveAlphanumericInput(int* success, int base) {
 
 		char *input = NULL;
@@ -293,6 +303,8 @@ char* retrieveAlphanumericInput(int* success, int base) {
 		return input;
 }
 
+
+//recies what the user inputs
 void retrieveInput(char** input, int* success, int base) {
 
 		int size = 128;
