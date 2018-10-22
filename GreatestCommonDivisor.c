@@ -2,7 +2,7 @@
 #include "GreatestCommonDivisor.h"
 
 /*
-* Fonction that calculate the greatest common divisor for two number
+* Function that calculate the greatest common divisor for two number
 * Param:
 * 	int num1 : first number
 *	int num2 : secon number
@@ -13,7 +13,7 @@
 long int gcd(long int num1, long int num2, int* success) {
 	long int remainder;
 	long int lastRemainder;
-	
+
 	if (num1 == 0 || num2 == 0) {
 		*success = 0;
 		return 0;
