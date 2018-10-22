@@ -5,7 +5,7 @@
 /*This functino checks to see if the passed value is a prime number*/
 int isPrime( long int num ) {
 		int i;
-
+ 
 
 		if (num <= 1) {
 					return 0;
