@@ -2,6 +2,7 @@
 #include <math.h>
 #include "PrimalityTest.h"
 
+//This function checks to see if the number is a prime number
 int isPrime(long int num) {
 	if (num <= 1) {
 		return 0;
@@ -23,6 +24,8 @@ int isPrime(long int num) {
 	return 1;
 }
 
+
+//This function looks for the next prime number
 long int getNextPrime(long int num) {
 	if (num < 2) {
 		return 2;
