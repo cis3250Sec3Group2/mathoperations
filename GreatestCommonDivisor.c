@@ -11,6 +11,9 @@
 * 	long int greatest common divisor
 */
 long int gcd(long int num1, long int num2, int* success) {
+	long int remainder;
+	long int lastRemainder;
+	
 	if (num1 == 0 || num2 == 0) {
 		*success = 0;
 		return 0;
@@ -35,9 +38,6 @@ long int gcd(long int num1, long int num2, int* success) {
 		num2 = num1;
 		num1 = temp;
 	}
-
-	long int remainder;
-	long int lastRemainder;
 
 	do {
 		lastRemainder = remainder;
