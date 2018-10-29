@@ -2,7 +2,7 @@
 #include <string.h>
 #include "PrimeFactorization.h"
 #include "PrimalityTest.h"
-
+/*Done by Ciprian Pavel*/
 char* primeFactorization(long int num, int* success) {
 	if (success == NULL) {
 		return NULL;
