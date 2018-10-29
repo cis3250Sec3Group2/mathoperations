@@ -3,94 +3,99 @@
 #include "PrimeFactorization.h"
 #include "PrimalityTest.h"
 
+/*The function calculates the prime base*/
 char* primeFactorization(long int num, int* success) {
-	if (success == NULL) {
-		return NULL;
-	} else {
-		*success = '\0';
-	}
+		long int base = 2;
+		long int power = 0;
+		char* list = malloc(sizeof(char));
 
-	if (num <= 1) {
-		*success = -1;
-		return NULL;
-	}
-
-	char* list = (char*)malloc(sizeof(char));
-	list[0] = '\0';
-
-	if (isPrime(num) == 1) {
-		*success = 1;
-		list = addToList(list, num, 1);
-		return list;
-	}
-
-	long int base = 2;
-	long int power = 0;
-
-	while (num != 1) {
-		while (num % base == 0) {
-			num /= base;
-			power++;
+		if (success == NULL) {
+			return NULL;
+		} else {
+			*success = '\0';
 		}
 
-		if (power != 0) {
-			list = addToList(list, base, power);
+		if (num <= 1) {
+			*success = -1;
+			return NULL;
+		}
+		list[0] = '\0';
 
-			if (num != 1 && isPrime(num) == 1) {
-				list = addToList(list, num, 1);
-				break;
+		if (isPrime(num) == 1) {
+			*success = 1;
+			list = addToList(list, num, 1);
+			return list;
+		}
+
+		while (num != 1) {
+			while (num % base == 0) {
+				num /= base;
+				power++;
 			}
-			power = 0;
+
+			if (power != 0) {
+				list = addToList(list, base, power);
+
+				if (num != 1 && isPrime(num) == 1) {
+					list = addToList(list, num, 1);
+					break;
+				}
+
+				power = 0;
+			}
+
+			base = getNextPrime(base);
 		}
-		base = getNextPrime(base);
-	}
-	*success = 1;
-	return list;
+
+		*success = 1;
+		return list;
 }
 
+/*The function converts the number to string*/
 char* toString(long int num) {
-	int len = 1;
-	long int newNum = num;
+		int len = 1;
+		int i;
+		long int newNum = num;
+		char *ret = malloc(sizeof(char) * len + 1);
 
-	while (newNum / 10 != 0) {
-		newNum /= 10;
-		len++;
-	}
+		while (newNum / 10 != 0) {
+			newNum /= 10;
+			len++;
+		}
+		ret[len] = '\0';
 
-	char *ret = (char*)malloc(sizeof(char) * len + 1);
+		for (i = len - 1; i >= 0; i--) {
+			ret[i] = ((num % 10) + '0');
+			num /= 10;
+		}
 
-	ret[len] = '\0';
-
-	int i;
-	for (i = len - 1; i >= 0; i--) {
-		ret[i] = ((num % 10) + '0');
-		num /= 10;
-	}
-	return ret;
+		return ret;
 }
 
+/*The function adds the string to the list*/
 char* addToList(char* list, long int base, long int power) {
-	int currentLen = strlen(list);
-	char* baseStr = toString(base);
-	char* powerStr = toString(power);
-	int newLen = currentLen + strlen(baseStr) + strlen(powerStr);
+		char* baseStr = toString(base);
+		char* powerStr = toString(power);
+		int currentLen = strlen(list);
+		int newLen = currentLen + strlen(baseStr) + strlen(powerStr);
 
-	char* newList;
-	if (currentLen == 0) {
-		newList = (char*)realloc(list, sizeof(char) * newLen + 2);
-		strcat(newList,baseStr);
-		strcat(newList, "^");
-		strcat(newList, powerStr);
-	} else {
-		newList = (char*)realloc(list, sizeof(char) * newLen + 5);
-		strcat(newList, " * ");
-		strcat(newList, baseStr);
-		strcat(newList, "^");
-		strcat(newList, powerStr);
-	}
-	free(baseStr);
-	free(powerStr);
-	baseStr = NULL;
-	powerStr = NULL;
-	return newList;
+		char* newList;
+		if (currentLen == 0) {
+			newList = realloc(list, sizeof(char) * newLen + 2);
+			strcat(newList,baseStr);
+			strcat(newList, "^");
+			strcat(newList, powerStr);
+		} else {
+			newList = realloc(list, sizeof(char) * newLen + 5);
+			strcat(newList, " * ");
+			strcat(newList, baseStr);
+			strcat(newList, "^");
+			strcat(newList, powerStr);
+		}
+
+		free(baseStr);
+		free(powerStr);
+		baseStr = NULL;
+		powerStr = NULL;
+		return newList;
 }
