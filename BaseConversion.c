@@ -13,6 +13,7 @@
 
 /*Done by Hilary*/
 
+/* calculates the conversion from one base to another */
 char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
 		int i;
 		int len = 0;
