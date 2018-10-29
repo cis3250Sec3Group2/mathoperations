@@ -2,8 +2,12 @@
 #include <string.h>
 #include "PrimeFactorization.h"
 #include "PrimalityTest.h"
+<<<<<<< HEAD
 
 /*The function calculates the prime base*/
+=======
+/*Done by Ciprian Pavel*/
+>>>>>>> c072939ce852aed5736faa2202fc466f2806b381
 char* primeFactorization(long int num, int* success) {
 		long int base = 2;
 		long int power = 0;
