@@ -36,7 +36,6 @@ long int getNextPrime(long int num) {
 		num += 2;
 	}
 
-
 		while (isPrime(num == 0 )) {
 				num += 2;
 		}
