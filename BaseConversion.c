@@ -1,3 +1,9 @@
+/* BaseConversion.c converts a value from one base to another
+* Included functions:
+* char* baseConversion(int baseFrom, int baseTo, char* num, int* success)
+* int willNextOverflow(unsigned long int num1, unsigned long int num2)
+*/
+
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
