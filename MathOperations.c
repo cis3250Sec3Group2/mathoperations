@@ -258,7 +258,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		printf("\n~~~~~~~~~~~~~~~~~~~~\n\n");
-	}	
+	}
 }
 
 long int retrieveNumericInput(int* success) {
