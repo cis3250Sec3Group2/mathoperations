@@ -13,7 +13,7 @@ char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
 		return NULL;
 	} else {
 		*success = '\0';
-	}
+	}\
 
 	int len = 0;
 	int isPositive = '\0';
