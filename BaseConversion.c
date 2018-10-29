@@ -124,6 +124,7 @@ char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
 		return ret;
 }
 
+/* checks if there is an overflow */
 int willNextOverflow(unsigned long int num1, unsigned long int num2) {
 		if (num1 > ULONG_MAX - num2) {
 				return 1;
