@@ -8,4 +8,6 @@ These programs allow you to perform basic math operations. You are able to:
 4. Calculate the greatest common divisor of two numbers
 5. Do the factorization of prime numbers
 
-To run the program, you run MathOperations.c
+To run the program do:
+    * make (to compile)
+    * ./MathOperations (to execute)
