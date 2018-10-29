@@ -3,7 +3,6 @@
 #include "PrimeFactorization.h"
 #include "PrimalityTest.h"
 
-/*done by Jamie*/
 /*The function calculates the prime base*/
 char* primeFactorization(long int num, int* success) {
 		long int base = 2;
