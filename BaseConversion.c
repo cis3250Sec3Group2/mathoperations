@@ -8,6 +8,7 @@
 /*Done by Hilary*/
 
 char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
+<<<<<<< HEAD
 		int i;
 		int len = 0;
 		int power = 0;
@@ -26,6 +27,28 @@ char* baseConversion(int baseFrom, int baseTo, char* num, int* success) {
 				}
 		} else {
 				*success = '\0';
+=======
+	if (baseFrom < 2 || baseFrom > 36 || num == NULL || success == NULL) {
+		if (success != NULL) {
+			*success = -1;
+		}
+		return NULL;
+	} else {
+		*success = '\0';
+	}\
+
+	int len = 0;
+	int isPositive = '\0';
+	while (num[len] != '\0') {
+		if (len == 0) {
+			if (num[len] == '-') {
+				isPositive = 0;
+			} else if (num[len] == '+') {
+				isPositive = 1;
+			} else {
+				isPositive = 1;
+			}
+>>>>>>> cpavel
 		}
 
 		while (num[len] != '\0') {
