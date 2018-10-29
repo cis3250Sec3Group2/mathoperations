@@ -11,5 +11,4 @@ char* retrieveAlphanumericInput(int*, int);
 
 void retrieveInput(char**, int*, int);
 
-
 #endif
