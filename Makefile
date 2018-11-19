@@ -1,5 +1,13 @@
 all: MathOperations
 
+test: TestGCD
+
+TestGCD: GreatestCommonDivisor.o TestGCD.o
+	gcc -o TestGCD GreatestCommonDivisor.o TestGCD.o
+
+TestGCD.o: TestGCD.c GreatestCommonDivisor.h
+	gcc -o TestGCD.o -c TestGCD.c -W -Wall -ansi -pedantic
+
 MathOperations: GreatestCommonDivisor.o BaseConversion.o Fibonacci.o PrimalityTest.o PrimeFactorization.o MathOperations.o
 	gcc -o MathOperations GreatestCommonDivisor.o  BaseConversion.o Fibonacci.o PrimalityTest.o PrimeFactorization.o MathOperations.o
 
